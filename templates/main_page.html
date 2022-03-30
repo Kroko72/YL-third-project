@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+{% if current_user.id == 1 %}
+    <a href="/add_entry" class="btn btn-secondary">Создать запись</a>
+{% endif %}
+{% for item in entries[::-1] %}
+    <div class="col-md3 border rounded shadow p-3 bg-body rounded" style="width: 75%; margin-left: -30px;">
+        <h2 id="{{item.id}}" style="margin-left: 7px">{{item.title}}</h2>
+        <div style="font-weight: bold; margin-left: 7px">Дата написания - {{item.created_date}}</div><br>
+        <pre style="font-size: 17px; margin-left: 7px">{{item.content}}</pre>
+        {% if item.images %}
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-indicators">
+                {% for j in item.images.split(" ") %}
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{loop.index0}}" class="active" aria-current="true" aria-label="Slide {{loop.index}}"></button>
+                {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                {% for image in item.images.split(" ") %}
+                    {% if loop.index0 == 0 %}
+                        <div class="carousel-item active">
+                            <center>
+                                <a href="http://127.0.0.1:5000/static/img/{{image}}" target="_blank">
+                                    <img src="../static/img/{{image}}" class="d-block" alt="..." width="900" height="500">
+                                </a>
+                            </center>
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+                            <center>
+                                <a href="http://127.0.0.1:5000/static/img/{{image}}" target="_blank">
+                                    <img src="../static/img/{{image}}" class="d-block" alt="..." width="900" height="500">
+                                </a>
+                            </center>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% endif %}
+        {% if current_user.id == 1 %}
+            <a class="btn btn-dark" href="/pin_entry/{{item.id}}">Закрепить/открепить запись</a>
+            <a class="btn btn-dark" href="/edit_entry/{{item.id}}">Изменить запись</a>
+            <a class="btn btn-dark" href="/delete_entry/{{item.id}}">Удалить запись</a>
+        {% endif %}
+    </div>
+    <br>
+{% endfor %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-1 bg-body rounded border rounded" style="width: 24rem; position: absolute; top: 80px; right: 30px;">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column">
+                    <li class="nav-item">
+                        <h2 class="nav-brand">Закреплённые записи:</h2>
+                    </li>
+		            {% for item in pinned_entries %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#{{item.id}}">{{item.title}}</a>
+                        </li>
+		            {% endfor %}
+                </ul>
+            </div>
+        </div>
+</nav>
+{% endblock %}
