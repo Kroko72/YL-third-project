@@ -1,1 +1,1 @@
-from . import users, entry, files, test
+from . import users, entry

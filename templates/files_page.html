@@ -6,48 +6,47 @@
     <a href="/add_file" class="btn btn-secondary">Добавить файл</a>
 {% endif %}
 <div class="col-md3 border rounded shadow p-3 bg-body rounded" style="width: 75%; margin-left: -30px;">
-    {% for item in files[::-1] %}
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{item.title}}</h5>
-                {% if item.content %}
-                    <p class="card-text">{{item.content}}</p>
-                {% endif %}
-                {% if item.filename %}
-                    <a href="http://127.0.0.1:5000/static/files/{{item.filename}}" class="btn btn-primary" download>
-                        Скачать
-                    </a>
-                {% elif item.filelink %}
-                    <a href="{{item.filelink}}" class="btn btn-primary" target="_blank">
-                        Скачать
-                    </a>
-                {% endif %}
-                {% if current_user.id == 1 %}
-                    <a class="btn btn-dark" href="/pin_file/{{item.id}}">Закрепить/открепить файл</a>
-                    <a class="btn btn-dark" href="/edit_file/{{item.id}}">Изменить файл</a>
-                    <a class="btn btn-dark" href="/delete_file/{{item.id}}">Удалить файл</a>
-                {% endif %}
-            </div>
-        </div>
-        <br>
-    {% endfor %}
-</div>
-<br>
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-1 bg-body rounded border rounded"
-     style="width: 24rem; position: absolute; top: 80px; right: 30px;">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column">
-                <li class="nav-item">
-                    <h2 class="nav-brand">Закреплённые файлы:</h2>
-                </li>
-                {% for item in pinned_files %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#{{item.id}}">{{item.title}}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+{% for item in files[::-1] %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{item.title}}</h5>
+            {% if item.content %}
+                <p class="card-text">{{item.content}}</p>
+            {% endif %}
+            {% if item.filename %}
+                <a href="http://127.0.0.1:5000/static/files/{{item.filename}}" class="btn btn-primary" download>
+                    Скачать
+                </a>
+            {% elif item.filelink %}
+                <a href="{{item.filelink}}" class="btn btn-primary" target="_blank">
+                    Скачать
+                </a>
+            {% endif %}
+            {% if current_user.id == 1 %}
+                <a class="btn btn-dark" href="/pin_file/{{item.id}}">Закрепить/открепить файл</a>
+                <a class="btn btn-dark" href="/edit_file/{{item.id}}">Изменить файл</a>
+                <a class="btn btn-dark" href="/delete_file/{{item.id}}">Удалить файл</a>
+            {% endif %}
         </div>
     </div>
+    <br>
+{% endfor %}
+</div>
+<br>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-1 bg-body rounded border rounded" style="width: 24rem; position: absolute; top: 80px; right: 30px;">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column">
+                    <li class="nav-item">
+                        <h2 class="nav-brand">Закреплённые файлы:</h2>
+                    </li>
+		            {% for item in pinned_files %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#{{item.id}}">{{item.title}}</a>
+                        </li>
+		            {% endfor %}
+                </ul>
+            </div>
+        </div>
 </nav>
 {% endblock %}
