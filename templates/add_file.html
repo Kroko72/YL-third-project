@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <br>
-{% if current_user.admin %}
+{% if current_user.id == 1 %}
     <center><h1>Добавление файла</h1></center>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -34,17 +34,8 @@
         </p>
         <p>
             {{ form.filelink.label }}<br>
-            {{ form.filelink(class="form-control", placeholder="Ссылку на файл после редактирования нужно добавлять заново") }}<br>
+            {{ form.filelink(class="form-control") }}<br>
             {% for error in form.filelink.errors %}
-                <p content="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.category.label }}<br>
-            {{ form.category(class="form-select") }}<br>
-            {% for error in form.category.errors %}
                 <p content="alert alert-danger" role="alert">
                     {{ error }}
                 </p>

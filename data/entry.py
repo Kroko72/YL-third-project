@@ -6,7 +6,8 @@ from .db_session import SqlAlchemyBase
 class Entry(SqlAlchemyBase):
     __tablename__ = 'entries'
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer,
+                           primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
     date = str(datetime.datetime.now().date()).split("-")
