@@ -37,9 +37,30 @@ class FilesForm(FlaskForm):
     content = TextAreaField("Содержание")
     filename = FileField("Загрузить файл")
     filelink = StringField("Добавить ссылку на файл")
+    category = SelectField("Категория", validators=[DataRequired()], default="file", choices=[("file", "Файл"),
+                                                                                              ("guide", "Справочник"),
+                                                                                              ("program", "Программа")])
     submit = SubmitField('Создать/изменить')
 
 
 class PasswordRecoverForm(FlaskForm):
     email = StringField("Почта")
     submit = SubmitField("Восстановить пароль")
+
+
+class TestForm(FlaskForm):
+    title = StringField('Заголовок', validators=[DataRequired()])
+    content = TextAreaField("Содержание")
+    images = FileField("Загрузить картинки")
+    grade = StringField('Номер класса', validators=[DataRequired()])
+    grade_char = SelectField("Буква класса", validators=[DataRequired()], default="A", choices=[("А", "А"),
+                                                                                                ("Б", "Б"),
+                                                                                                ("В", "В"),
+                                                                                                ("Г", "Г")])
+    submit = SubmitField('Создать/изменить')
+
+
+class TestAnswerForm(FlaskForm):
+    answer = TextAreaField("Ответ:")
+    answer_images = FileField("Загрузить картинки")
+    submit = SubmitField('Отправить')
