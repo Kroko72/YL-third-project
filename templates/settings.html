@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<center><h1>Изменение данных</h1></center>
+{% if message %}
+    <div class="alert alert-dark" role="alert">
+        {{message}}
+    </div>
+{% endif %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.surname.label }}<br>
+        {{ form.surname(class="form-control") }}<br>
+        {% for error in form.surname.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p style="width: 25%">
+        {{ form.grade.label }}<br>
+        {{ form.grade(class="form-control") }}<br>
+        {% for error in form.grade.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p style="width: 25%; position: relative; margin-top: -102px; left: 28%">
+        {{ form.grade_char.label }}<br>
+        {{ form.grade_char(class="form-select") }}<br>
+        {% for error in form.grade_char.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <center><p>{{ form.submit(type="submit", class="btn btn-dark") }}</p></center>
+</form>
+{% endblock %}

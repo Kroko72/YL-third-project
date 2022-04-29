@@ -2,7 +2,7 @@
 {% block content %}
 <br>
 {% if current_user.admin %}
-    <center><h1>Добавление записи</h1></center>
+    <center><h1>Добавление теста</h1></center>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
@@ -23,6 +23,24 @@
                 </p>
             {% endfor %}
         </p></center>
+        <p style="width: 25%">
+        {{ form.grade.label }}<br>
+        {{ form.grade(class="form-control") }}<br>
+        {% for error in form.grade.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p style="width: 25%; position: relative; margin-top: -102px; left: 28%">
+            {{ form.grade_char.label }}<br>
+            {{ form.grade_char(class="form-select") }}<br>
+            {% for error in form.grade_char.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
         <p>
             {{ form.images.label }}<br>
             {{ form.images(class="form-control", type="file", id="formFileMultiple", multiple="true") }}<br>

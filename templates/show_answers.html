@@ -3,18 +3,17 @@
 {% block content %}
 <br>
 {% if current_user.admin %}
-    <a href="/add_entry" class="btn btn-secondary">Создать запись</a>
-{% endif %}
-{% for item in entries[::-1] %}
-    <div class="col-md3 border rounded shadow p-3 bg-body rounded" style="width: 75%; margin-left: -30px;">
-        <h2 id="{{item.id}}" style="margin-left: 7px">{{item.title}}</h2>
-        <div style="font-weight: bold; margin-left: 7px">Дата написания - {{item.created_date}}</div><br>
-        <pre class="text-break" style="font-size: 18px; margin-left: 7px; white-space: pre-wrap;"><code>{{item.content}}</code></pre>
-        {% if item.images %}
+{% for item in answers %}
+    <div class="col-md3 border rounded shadow p-3 bg-body rounded" style="width: 100%; margin-left: -30px;">
+        <h2 id="{{item.id}}" style="margin-left: 7px">{{item.test.title}}</h2>
+        <div style="font-weight: bold; margin-left: 7px">{{item.user.surname}} {{item.user.name}}</div>
+        <pre class="text-break" style="font-size: 19px; margin-left: 7px; white-space: pre-wrap;">
+<code>{{item.answer}}</code></pre>
+        {% if item.answer_images %}
             <div id="entry{{loop.index0}}" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-indicators">
                     {% set higher_loop = loop.index0 %}
-                    {% for j in item.images.split(";;;") %}
+                    {% for j in item.answer_images.split(";;;") %}
                         {% if loop.index0 == 0 %}
                             <button type="button" data-bs-target="#entry{{higher_loop}}" data-bs-slide-to="{{loop.index0}}"
                                     class="active" aria-current="true" aria-label="Slide {{loop.index}}"></button>
@@ -25,20 +24,20 @@
                     {% endfor %}
                 </div>
                 <div class="carousel-inner">
-                    {% for image in item.images.split(";;;") %}
+                    {% for image in item.answer_images.split(";;;") %}
                         {% if loop.index0 == 0 %}
                             <div class="carousel-item active">
                                 <center>
-                                    <a href="/static/img/{{image}}" target="_blank">
-                                        <img src="../static/img/{{image}}" class="d-block" alt="..." width="900" height="500">
+                                    <a href="http://licey83narod.ru/static/answers_img/{{image}}" target="_blank">
+                                        <img src="../static/answers_img/{{image}}" class="d-block" alt="..." width="900" height="500">
                                     </a>
                                 </center>
                             </div>
                         {% else %}
                             <div class="carousel-item">
                                 <center>
-                                    <a href="/static/img/{{image}}" target="_blank">
-                                        <img src="../static/img/{{image}}" class="d-block" alt="..." width="900" height="500">
+                                    <a href="http://licey83narod.ru/static/answers_img/{{image}}" target="_blank">
+                                        <img src="../static/answers_img/{{image}}" class="d-block" alt="..." width="900" height="500">
                                     </a>
                                 </center>
                             </div>
@@ -55,29 +54,9 @@
                 </button>
             </div>
         {% endif %}
-        {% if current_user.admin %}
-            <a class="btn btn-dark" href="/pin_entry/{{item.id}}">Закрепить/открепить запись</a>
-            <a class="btn btn-dark" href="/edit_entry/{{item.id}}">Изменить запись</a>
-            <a class="btn btn-dark" href="/delete_entry/{{item.id}}">Удалить запись</a>
-        {% endif %}
+      <a class="btn btn-dark" href="/delete_answer/{{item.id}}">Удалить ответ</a>
     </div>
     <br>
 {% endfor %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-1 bg-body rounded border rounded"
-     style="width: 24rem; position: absolute; top: 80px; right: 30px;">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column">
-                <li class="nav-item">
-                    <h2 class="nav-brand">Закреплённые записи:</h2>
-                </li>
-                {% for item in pinned_entries %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#{{item.id}}">{{item.title}}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</nav>
+{% endif %}
 {% endblock %}

@@ -9,5 +9,6 @@ class File(SqlAlchemyBase):
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.Text, nullable=True, default="")
     filename = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    category = sqlalchemy.Column(sqlalchemy.String)
     filelink = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     pinned = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)

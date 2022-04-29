@@ -4,7 +4,8 @@ from licey83narod.data.constants import FROM, PASSWORD, HOST, PORT
 from email.mime.multipart import MIMEMultipart
 
 
-def send_email(email, token="", type="", password=""):
+# Функция отправки письма
+def send_email(email: str, token="", type="", password="") -> None:
     msg = MIMEMultipart()
     msg["From"] = FROM
     msg["To"] = email
