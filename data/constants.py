@@ -1,7 +1,7 @@
-key = '91sdHsgaHj'
+key = 'key'
 cookie_lifetime = 1
 HOST = "smtp.yandex.ru"
-PORT = 465
-FROM = "licey83narod@yandex.ru"
-PASSWORD = "nocfefpoxldhwfzx"
-MAILSALT = "5HRIkXTudy"
+PORT = 0
+FROM = "mail"
+PASSWORD = "password"
+MAILSALT = "mailsalt"
